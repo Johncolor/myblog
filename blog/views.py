@@ -14,6 +14,13 @@ def create(request):
     content = request.POST.get('content')
     print title, content
     Blog.objects.create(title=title,content=content)
+    Blog.objects.create(title=title,content=content)
+    Blog.objects.create(title=title,content=content)
+    Blog.objects.create(title=title,content=content)
+    Blog.objects.create(title=title,content=content)
+    Blog.objects.create(title=title,content=content)
+    Blog.objects.create(title=title,content=content)
+    Blog.objects.create(title=title,content=content)
     return HttpResponse('OK')
 
 def update(request):
