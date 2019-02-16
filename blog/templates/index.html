@@ -17,6 +17,12 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"
                 id="create">创建博客
         </button>
+        <input type="text" placeholder="请输入要搜索的关键字" id="search_str">
+        <select name="" id="pagenat">
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+        </select>
 
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
              id="modal">
@@ -141,6 +147,30 @@
                     }
                 })
             }
+        });
+
+        $('#search_str').on('input propertychange', function (e) {
+            var value = $('#search_str').val();
+            var data = {
+                'search_str': value,
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'pagesize': 10,
+                'current_page': 1
+            };
+            $.post('/blog/search/', data, function (res) {
+                var blog_items = JSON.parse(res);
+                var htmls = '';
+                for (var i in blog_items) {
+                    htmls = htmls + '<tr id="' + blog_items[i].id + '">' +
+                        ' <td>' + blog_items[i].title + '</td>' +
+                        '<td>' + blog_items[i].content + '</td>' +
+                        '<td><button type="button" class="btn btn-sm btn-primary edit"  data-toggle="modal" data-target=".bs-example-modal-lg">编辑</button>' +
+                        '<button class="btn btn-sm btn-danger delete" >删除</button></td>' +
+                        '</tr>'
+                }
+                $('#table').html(htmls);
+
+            })
         })
 
     })

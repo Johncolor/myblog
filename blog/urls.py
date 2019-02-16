@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^create/', create),
     url(r'^update/', update),
     url(r'^delete/', delete),
+    url(r'^search/', search),
 
     url(r'^get_data/', get_data),
     # url(r'^admin/', admin.site.urls),
